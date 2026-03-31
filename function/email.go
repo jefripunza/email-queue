@@ -28,6 +28,9 @@ func SendEmail(to string, subject string, body string) error {
 	tlsConfig := &tls.Config{
 		ServerName: smtpHost,
 	}
+	if environment.GetEmailSkipTLSVerify() {
+		tlsConfig.InsecureSkipVerify = true
+	}
 	if err = client.StartTLS(tlsConfig); err != nil {
 		return err
 	}

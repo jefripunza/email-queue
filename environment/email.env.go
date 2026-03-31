@@ -2,6 +2,7 @@ package environment
 
 import (
 	"os"
+	"strconv"
 )
 
 func GetEmailEnv() (string, string, string, string, string) {
@@ -12,4 +13,16 @@ func GetEmailEnv() (string, string, string, string, string) {
 	smtpPort := os.Getenv("EMAIL_SMTP_PORT")
 
 	return fromEmail, fromName, password, smtpHost, smtpPort
+}
+
+func GetEmailSkipTLSVerify() bool {
+	v := os.Getenv("EMAIL_SKIP_TLS_VERIFY")
+	if v == "" {
+		return false
+	}
+	b, err := strconv.ParseBool(v)
+	if err != nil {
+		return false
+	}
+	return b
 }
