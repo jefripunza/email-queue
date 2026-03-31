@@ -24,6 +24,11 @@ RUN go build -o email-queue main.go
 FROM runner
 WORKDIR /app
 
+# install ca-certificates
+RUN apt-get update && apt-get install -y \
+    sudo unzip ca-certificates curl wget nano net-tools iputils-ping \
+    && rm -rf /var/lib/apt/lists/*
+
 # copy compiled files
 COPY --from=be-builder /app/email-queue /app/email-queue
 
