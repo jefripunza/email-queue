@@ -6,6 +6,8 @@ import (
 	"email-queue/worker"
 	"log"
 
+	"email-queue/environment"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -34,5 +36,6 @@ func main() {
 
 	worker.StartEmailWorker()
 
-	log.Fatal(app.Listen(":3000"))
+	port := environment.GetServerPort()
+	log.Fatal(app.Listen(":" + port))
 }

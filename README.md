@@ -20,13 +20,14 @@ A lightweight, self-hosted email queue service built with **Go**. Queue emails v
 docker run -d \
   --name email-queue \
   -p 3000:3000 \
+  -e SERVER_PORT=3000 \
   -e API_KEY=your-secret-key \
   -e EMAIL_FROM_EMAIL=no-reply@example.com \
   -e EMAIL_FROM_NAME="My App" \
   -e EMAIL_PASSWORD=your-email-password \
   -e EMAIL_SMTP_HOST=smtp.example.com \
   -e EMAIL_SMTP_PORT=587 \
-  your-dockerhub-username/email-queue:latest
+  jefriherditriyanto/email-queue:latest
 ```
 
 ### Docker Compose
@@ -35,10 +36,11 @@ docker run -d \
 version: "3.8"
 services:
   email-queue:
-    image: your-dockerhub-username/email-queue:latest
+    image: jefriherditriyanto/email-queue:latest
     ports:
       - "3000:3000"
     environment:
+      SERVER_PORT: 3000
       API_KEY: your-secret-key
       DATABASE_PROVIDER: sqlite
       DATABASE_NAME: data
@@ -59,6 +61,7 @@ volumes:
 
 | Variable            | Description                                     | Default         |
 | ------------------- | ----------------------------------------------- | --------------- |
+| `SERVER_PORT`       | Server port                                     | `3000`          |
 | `API_KEY`           | API key for authentication                      | `test-key`      |
 | `DATABASE_PROVIDER` | Database engine (`sqlite`, `mysql`, `postgres`) | `sqlite`        |
 | `DATABASE_HOST`     | Database host                                   | `localhost`     |
