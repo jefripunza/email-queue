@@ -1,7 +1,7 @@
 FROM golang:tip-trixie AS backend
 FROM debian:bookworm-slim AS runner
 LABEL org.opencontainers.image.authors="Jefri Herdi Triyanto <jefriherditriyanto@gmail.com>"
-LABEL description="Ketring.ID: Catering Management System"
+LABEL description="Email Queue: A lightweight, self-hosted email queue service"
 
 # =======================================================================================
 # Build Backend
