@@ -4,6 +4,7 @@ import (
 	"crypto/tls"
 	"email-queue/environment"
 	"net/smtp"
+	"log"
 )
 
 func SendEmail(to string, subject string, body string) error {
@@ -24,6 +25,7 @@ func SendEmail(to string, subject string, body string) error {
 	if err != nil {
 		return err
 	}
+	log.Printf("✅ Connected to SMTP server %s", addr)
 
 	tlsConfig := &tls.Config{
 		ServerName: smtpHost,
@@ -40,9 +42,11 @@ func SendEmail(to string, subject string, body string) error {
 	if err = client.Mail(fromEmail); err != nil {
 		return err
 	}
+	log.Printf("✅ MAIL FROM %s", fromEmail)
 	if err = client.Rcpt(to); err != nil {
 		return err
 	}
+	log.Printf("✅ RCPT TO %s", to)
 	w, err := client.Data()
 	if err != nil {
 		return err
@@ -51,11 +55,16 @@ func SendEmail(to string, subject string, body string) error {
 	if err != nil {
 		return err
 	}
+	log.Printf("✅ Email data written")
 	err = w.Close()
 	if err != nil {
 		return err
 	}
-	client.Quit()
-
+	err = client.Quit()
+	if err != nil {
+		log.Printf("❌ SMTP Quit error: %v", err)
+		return err
+	}
+	log.Printf("✅ Email sent to %s via %s", to, smtpHost)
 	return nil
 }
