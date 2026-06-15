@@ -29,15 +29,10 @@ func (s *EmailMessage) BeforeCreate(tx *gorm.DB) error {
 
 func (s *EmailMessage) Map() map[string]any {
 	return map[string]any{
-		"id":            s.ID,
 		"key":           s.Key,
-		"to":            s.To,
-		"subject":       s.Subject,
-		"body":          s.Body,
 		"is_sended":     s.IsSended,
 		"is_error":      s.IsError,
 		"error_message": s.ErrorMessage,
-		"created_at":    s.CreatedAt,
 		"sended_at":     s.SendedAt,
 	}
 }

@@ -22,11 +22,14 @@ docker run -d \
   -p 3000:3000 \
   -e SERVER_PORT=3000 \
   -e API_KEY=your-secret-key \
+  -e DATABASE_PROVIDER=sqlite \
+  -e DATABASE_NAME=data \
   -e EMAIL_FROM_EMAIL=no-reply@example.com \
   -e EMAIL_FROM_NAME="My App" \
   -e EMAIL_PASSWORD=your-email-password \
   -e EMAIL_SMTP_HOST=smtp.example.com \
   -e EMAIL_SMTP_PORT=587 \
+  -e DELAY_SECOND=5 \
   jefriherditriyanto/email-queue:latest
 ```
 
@@ -121,15 +124,10 @@ GET /api/message/status/:key
   "status": 200,
   "message": "Email status retrieved",
   "data": {
-    "id": "...",
     "key": "dfc9e68f-9faf-4d21-9ebc-84b92d7183fd",
-    "to": "recipient@example.com",
-    "subject": "Hello",
-    "body": "<h1>Hello World</h1>",
     "is_sended": true,
     "is_error": false,
     "error_message": "",
-    "created_at": "2026-03-31T15:00:00Z",
     "sended_at": "2026-03-31T15:00:05Z"
   }
 }
